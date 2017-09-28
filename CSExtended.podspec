@@ -39,4 +39,37 @@ TODO: CSExtended is a daily collection of categories. Most are collected, and pe
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   # s.dependency 'AFNetworking', '~> 2.3'
+
+
+    s.subspec 'Foundation' do |ss|
+        #ss.source_files = 'AFNetworking/AFURL{Request,Response}Serialization.{h,m}'
+        #ss.public_header_files = 'AFNetworking/AFURL{Request,Response}Serialization.h'
+        ss.source_files = 'CSExtended/Classes/Foundation/**/*'
+        ss.public_header_files = 'CSExtended/Classes/Foundation/**/*.h'
+
+        #ss.dependency 'CSExtended/Classes/Foundation'
+        ss.dependency 'CSExtended/Classes/Quartz'
+        ss.dependency 'CSExtended/Classes/UIKit'
+    end
+
+    s.subspec 'Quartz' do |ss|
+        ss.source_files = 'CSExtended/Classes/Quartz/**/*'
+        ss.public_header_files = 'CSExtended/Classes/Quartz/**/*.h'
+
+        ss.dependency 'CSExtended/Classes/Foundation'
+        #ss.dependency 'CSExtended/Classes/Quartz'
+        ss.dependency 'CSExtended/Classes/UIKit'
+
+    end
+
+    s.subspec 'UIKit' do |ss|
+        ss.source_files = 'CSExtended/Classes/UIKit/**/*'
+        ss.public_header_files = 'CSExtended/Classes/UIKit/**/*.h'
+
+        ss.dependency 'CSExtended/Classes/Foundation'
+        ss.dependency 'CSExtended/Classes/Quartz'
+        #ss.dependency 'CSExtended/Classes/UIKit'
+
+    end
+
 end
