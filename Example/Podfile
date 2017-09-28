@@ -1,0 +1,16 @@
+platform :ios, '8.2'
+
+use_frameworks!
+
+target 'CSExtended_Example' do
+  pod 'CSExtended', :path => '../'
+
+  target 'CSExtended_Tests' do
+    inherit! :search_paths
+
+    pod 'Specta'
+  pod 'Expecta'
+  pod 'FBSnapshotTestCase'
+  pod 'Expecta+Snapshots'
+  end
+end
