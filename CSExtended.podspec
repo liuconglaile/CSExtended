@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'CSExtended'
-  s.version          = '0.1.0'
+  s.version          = '0.1.1'
   s.summary          = 'CSExtended is a daily collection of categories.'
 
 # This description is used to generate tags and improve search results.
@@ -30,7 +30,7 @@ TODO: CSExtended is a daily collection of categories. Most are collected, and pe
 
   s.ios.deployment_target = '8.0'
 
-  s.source_files = 'CSExtended/Classes/**/*'
+  #s.source_files = 'CSExtended/Classes/**/*'
   
   # s.resource_bundles = {
   #   'CSExtended' => ['CSExtended/Assets/*.png']
@@ -44,8 +44,9 @@ TODO: CSExtended is a daily collection of categories. Most are collected, and pe
     s.subspec 'Foundation' do |ss|
         #ss.source_files = 'AFNetworking/AFURL{Request,Response}Serialization.{h,m}'
         #ss.public_header_files = 'AFNetworking/AFURL{Request,Response}Serialization.h'
-        ss.source_files = 'CSExtended/Classes/Foundation/**/*'
-        ss.public_header_files = 'CSExtended/Classes/Foundation/**/*.h'
+
+        ss.source_files = 'CSExtended/Classes/Foundation/*'
+        ss.public_header_files = 'CSExtended/Classes/Foundation/*.h'
 
         #ss.dependency 'CSExtended/Classes/Foundation'
         ss.dependency 'CSExtended/Classes/Quartz'
@@ -53,8 +54,8 @@ TODO: CSExtended is a daily collection of categories. Most are collected, and pe
     end
 
     s.subspec 'Quartz' do |ss|
-        ss.source_files = 'CSExtended/Classes/Quartz/**/*'
-        ss.public_header_files = 'CSExtended/Classes/Quartz/**/*.h'
+        ss.source_files = 'CSExtended/Classes/Quartz/*'
+        ss.public_header_files = 'CSExtended/Classes/Quartz/*.h'
 
         ss.dependency 'CSExtended/Classes/Foundation'
         #ss.dependency 'CSExtended/Classes/Quartz'
@@ -63,8 +64,8 @@ TODO: CSExtended is a daily collection of categories. Most are collected, and pe
     end
 
     s.subspec 'UIKit' do |ss|
-        ss.source_files = 'CSExtended/Classes/UIKit/**/*'
-        ss.public_header_files = 'CSExtended/Classes/UIKit/**/*.h'
+        ss.source_files = 'CSExtended/Classes/UIKit/*'
+        ss.public_header_files = 'CSExtended/Classes/UIKit/*.h'
 
         ss.dependency 'CSExtended/Classes/Foundation'
         ss.dependency 'CSExtended/Classes/Quartz'
