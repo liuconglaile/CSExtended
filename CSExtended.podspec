@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'CSExtended'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of CSExtended.'
+  s.summary          = 'CSExtended is a daily collection of categories.'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+TODO: CSExtended is a daily collection of categories. Most are collected, and personal use ....
                        DESC
 
   s.homepage         = 'https://github.com/liuconglaile/CSExtended'

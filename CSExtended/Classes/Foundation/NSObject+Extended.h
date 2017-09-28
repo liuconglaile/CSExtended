@@ -19,6 +19,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** 向接收方发送指定的消息,并返回消息的结果(使用示例1-1) */
 - (nullable id)performSelectorWithArgs:(SEL)sel, ...;
+
+/**
+ 示例代码:
+ 
+ // 无变量 args
+ [view performSelectorWithArgs:@selector(removeFromSuperView) afterDelay:2.0];
+ 
+ // 变量 arg 不是 NSObject
+ [view performSelectorWithArgs:@selector(setCenter:), afterDelay:0, CGPointMake(0, 0)];
+ 
+ */
+
 /** 在延迟之后使用默认模式调用当前线程上的接收方法,之前的请求不能取消(使用示例1-2) */
 - (void)performSelectorWithArgs:(SEL)sel afterDelay:(NSTimeInterval)delay, ...;
 /** 使用默认模式调用主线程上的接收器方法(使用示例1-3) */

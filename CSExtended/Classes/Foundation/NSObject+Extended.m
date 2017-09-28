@@ -23,7 +23,7 @@ CSSYNTH_DUMMY_CLASS(NSObject_Extended)
 BOOL method_swizzle(Class klass, SEL origSel, SEL altSel)
 {
     if (!klass)
-    return NO;
+        return NO;
     
     Method __block origMethod, __block altMethod;
     
@@ -35,14 +35,14 @@ BOOL method_swizzle(Class klass, SEL origSel, SEL altSel)
         origMethod = altMethod = NULL;
         
         if (methodList)
-        for (unsigned i = 0; i < methodCount; ++i)
-        {
-            if (method_getName(methodList[i]) == origSel)
-            origMethod = methodList[i];
-            
-            if (method_getName(methodList[i]) == altSel)
-            altMethod = methodList[i];
-        }
+            for (unsigned i = 0; i < methodCount; ++i)
+            {
+                if (method_getName(methodList[i]) == origSel)
+                    origMethod = methodList[i];
+                
+                if (method_getName(methodList[i]) == altSel)
+                    altMethod = methodList[i];
+            }
         
         free(methodList);
     };
@@ -54,10 +54,10 @@ BOOL method_swizzle(Class klass, SEL origSel, SEL altSel)
         origMethod = class_getInstanceMethod(klass, origSel);
         
         if (!origMethod)
-        return NO;
+            return NO;
         
         if (!class_addMethod(klass, method_getName(origMethod), method_getImplementation(origMethod), method_getTypeEncoding(origMethod)))
-        return NO;
+            return NO;
     }
     
     if (!altMethod)
@@ -65,16 +65,16 @@ BOOL method_swizzle(Class klass, SEL origSel, SEL altSel)
         altMethod = class_getInstanceMethod(klass, altSel);
         
         if (!altMethod)
-        return NO;
+            return NO;
         
         if (!class_addMethod(klass, method_getName(altMethod), method_getImplementation(altMethod), method_getTypeEncoding(altMethod)))
-        return NO;
+            return NO;
     }
     
     find_methods();
     
     if (!origMethod || !altMethod)
-    return NO;
+        return NO;
     
     method_exchangeImplementations(origMethod, altMethod);
     
@@ -84,12 +84,12 @@ BOOL method_swizzle(Class klass, SEL origSel, SEL altSel)
 void method_append(Class toClass, Class fromClass, SEL selector)
 {
     if (!toClass || !fromClass || !selector)
-    return;
+        return;
     
     Method method = class_getInstanceMethod(fromClass, selector);
     
     if (!method)
-    return;
+        return;
     
     class_addMethod(toClass, method_getName(method), method_getImplementation(method), method_getTypeEncoding(method));
 }
@@ -97,12 +97,12 @@ void method_append(Class toClass, Class fromClass, SEL selector)
 void method_replace(Class toClass, Class fromClass, SEL selector)
 {
     if (!toClass || !fromClass || ! selector)
-    return;
+        return;
     
     Method method = class_getInstanceMethod(fromClass, selector);
     
     if (!method)
-    return;
+        return;
     
     class_replaceMethod(toClass, method_getName(method), method_getImplementation(method), method_getTypeEncoding(method));
 }
@@ -136,7 +136,11 @@ va_end(args);
  @return 作为消息结果的对象
  */
 - (id)performSelectorWithArgs:(SEL)sel, ...{
+    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wvarargs"
     INIT_INV(sel, nil);
+#pragma clang diagnostic pop
     [inv invoke];
     return [NSObject getReturnFromInv:inv withSig:sig];
 }
@@ -151,7 +155,12 @@ va_end(args);
  
  */
 - (void)performSelectorWithArgs:(SEL)sel afterDelay:(NSTimeInterval)delay, ...{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wvarargs"
+    
     INIT_INV(delay, );
+    
+#pragma clang diagnostic pop
     [inv retainArguments];
     [inv performSelector:@selector(invoke) withObject:nil afterDelay:delay];
 }
@@ -164,7 +173,12 @@ va_end(args);
  @return 而@a等待是YES,它返回作为消息结果的对象.否则返回nil
  */
 - (id)performSelectorWithArgsOnMainThread:(SEL)sel waitUntilDone:(BOOL)wait, ...{
+    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wvarargs"
+    
     INIT_INV(wait, nil);
+#pragma clang diagnostic pop
     
     if (!wait) [inv retainArguments];
     [inv performSelectorOnMainThread:@selector(invoke) withObject:nil waitUntilDone:wait];
@@ -173,7 +187,11 @@ va_end(args);
 
 /** 使用默认模式调用指定线程上的接收方法(使用示例1-4) */
 - (id)performSelectorWithArgs:(SEL)sel onThread:(NSThread *)thr waitUntilDone:(BOOL)wait, ...{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wvarargs"
     INIT_INV(wait, nil);
+#pragma clang diagnostic pop
+    
     if (!wait) [inv retainArguments];
     [inv performSelector:@selector(invoke) onThread:thr withObject:nil waitUntilDone:wait];
     return wait ? [NSObject getReturnFromInv:inv withSig:sig] : nil;
@@ -186,7 +204,10 @@ va_end(args);
  由sel表示的方法必须像在程序中的任何其他新线程一样设置线程环境
  */
 - (void)performSelectorWithArgsInBackground:(SEL)sel, ...{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wvarargs"
     INIT_INV(sel, );
+#pragma clang diagnostic pop
     [inv retainArguments];
     [inv performSelectorInBackground:@selector(invoke) withObject:nil];
 }
@@ -235,19 +256,19 @@ return @(ret); \
             [inv getReturnValue:&ret];
             return [NSNumber numberWithDouble:ret];
         };
-        
+            
         case '@': { // id
             id ret = nil;
             [inv getReturnValue:&ret];
             return ret;
         };
-        
+            
         case '#': { // Class
             Class ret = nil;
             [inv getReturnValue:&ret];
             return ret;
         };
-        
+            
         default: { // struct / union / SEL / void* / unknown
             const char *objCType = [sig methodReturnType];
             char *buf = calloc(1, length);
@@ -291,58 +312,58 @@ return @(ret); \
                 int arg = va_arg(args, int);
                 [inv setArgument:&arg atIndex:index];
             } break;
-            
+                
             case 'q': // 8: long long / long(64bit) / NSInteger(64bit)
             case 'Q': // 8: unsigned long long / unsigned long(64bit) / NSUInteger(64bit)
             {
                 long long arg = va_arg(args, long long);
                 [inv setArgument:&arg atIndex:index];
             } break;
-            
+                
             case 'f': // 4: float / CGFloat(32bit)
             { // 'float' will be promoted to 'double'.
                 double arg = va_arg(args, double);
                 float argf = arg;
                 [inv setArgument:&argf atIndex:index];
             } break;
-            
+                
             case 'd': // 8: double / CGFloat(64bit)
             {
                 double arg = va_arg(args, double);
                 [inv setArgument:&arg atIndex:index];
             } break;
-            
+                
             case 'D': // 16: long double
             {
                 long double arg = va_arg(args, long double);
                 [inv setArgument:&arg atIndex:index];
             } break;
-            
+                
             case '*': // char *
             case '^': // pointer
             {
                 void *arg = va_arg(args, void *);
                 [inv setArgument:&arg atIndex:index];
             } break;
-            
+                
             case ':': // SEL
             {
                 SEL arg = va_arg(args, SEL);
                 [inv setArgument:&arg atIndex:index];
             } break;
-            
+                
             case '#': // Class
             {
                 Class arg = va_arg(args, Class);
                 [inv setArgument:&arg atIndex:index];
             } break;
-            
+                
             case '@': // id
             {
                 id arg = va_arg(args, id);
                 [inv setArgument:&arg atIndex:index];
             } break;
-            
+                
             case '{': // struct
             {
                 if (strcmp(type, @encode(CGPoint)) == 0) {
@@ -376,17 +397,17 @@ return @(ret); \
                     unsupportedType = YES;
                 }
             } break;
-            
+                
             case '(': // union
             {
                 unsupportedType = YES;
             } break;
-            
+                
             case '[': // array
             {
                 unsupportedType = YES;
             } break;
-            
+                
             default: // what?!
             {
                 unsupportedType = YES;
@@ -430,7 +451,7 @@ struct dummy arg = va_arg(args, struct dummy); \
                 struct dummy {char tmp;};
                 for (int i = 0; i < size; i++) va_arg(args, struct dummy);
                 CSNSLog(@"CSKit performSelectorWithArgs unsupported type:%s (%lu bytes)",
-                      [sig getArgumentTypeAtIndex:index],(unsigned long)size);
+                        [sig getArgumentTypeAtIndex:index],(unsigned long)size);
             }
 #undef case_size
             
@@ -559,15 +580,15 @@ struct dummy arg = va_arg(args, struct dummy); \
                                                                  (Class klass, SEL selector, Class stopClass)
                                                                  {
                                                                      if (!klass || klass == stopClass)
-                                                                     return NO;
+                                                                         return NO;
                                                                      
                                                                      unsigned methodCount = 0;
                                                                      Method *methodList = class_copyMethodList(klass, &methodCount);
                                                                      
                                                                      if (methodList)
-                                                                     for (unsigned i = 0; i < methodCount; ++i)
-                                                                     if (method_getName(methodList[i]) == selector)
-                                                                     return YES;
+                                                                         for (unsigned i = 0; i < methodCount; ++i)
+                                                                             if (method_getName(methodList[i]) == selector)
+                                                                                 return YES;
                                                                      
                                                                      return block_self(klass.superclass, selector, stopClass);
                                                                  } copy];
