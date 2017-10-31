@@ -1,35 +1,22 @@
 PODS:
-  - CSExtended (0.1.0)
-  - Expecta (1.0.6)
-  - Expecta+Snapshots (3.1.1):
-    - Expecta (~> 1.0)
-    - FBSnapshotTestCase/Core (~> 2.0)
-    - Specta (~> 1.0)
-  - FBSnapshotTestCase (2.1.4):
-    - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
-  - FBSnapshotTestCase/Core (2.1.4)
-  - FBSnapshotTestCase/SwiftSupport (2.1.4):
-    - FBSnapshotTestCase/Core
-  - Specta (1.0.6)
+  - CSExtended (0.1.1):
+    - CSExtended/Foundation (= 0.1.1)
+    - CSExtended/Quartz (= 0.1.1)
+    - CSExtended/UIKit (= 0.1.1)
+  - CSExtended/Foundation (0.1.1)
+  - CSExtended/Quartz (0.1.1)
+  - CSExtended/UIKit (0.1.1)
 
 DEPENDENCIES:
   - CSExtended (from `../`)
-  - Expecta
-  - Expecta+Snapshots
-  - FBSnapshotTestCase
-  - Specta
 
 EXTERNAL SOURCES:
   CSExtended:
     :path: ../
 
 SPEC CHECKSUMS:
-  CSExtended: 6bb25bf435258b87efd0e4f254543f68ff8f812f
-  Expecta: 3b6bd90a64b9a1dcb0b70aa0e10a7f8f631667d5
-  Expecta+Snapshots: dcff217eef506dabd6dfdc7864ea2da321fafbb8
-  FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
-  Specta: f506f3a8361de16bc0dcf3b17b75e269072ba465
+  CSExtended: e8fd01457cf4f9b098aa07942b81965d1b5f39d6
 
-PODFILE CHECKSUM: b2f613bdf5c244223735303535cae161c9dfd300
+PODFILE CHECKSUM: 52445fab7d920b854893c0ee48696bbf82668e74
 
 COCOAPODS: 1.3.1

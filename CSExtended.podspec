@@ -30,7 +30,7 @@ TODO: CSExtended is a daily collection of categories. Most are collected, and pe
 
   s.ios.deployment_target = '8.0'
 
-  #s.source_files = 'CSExtended/Classes/**/*'
+  s.source_files = 'CSExtended/Classes/**/*'
   
   # s.resource_bundles = {
   #   'CSExtended' => ['CSExtended/Assets/*.png']

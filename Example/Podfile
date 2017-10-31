@@ -8,9 +8,9 @@ target 'CSExtended_Example' do
   target 'CSExtended_Tests' do
     inherit! :search_paths
 
-    pod 'Specta'
-  pod 'Expecta'
-  pod 'FBSnapshotTestCase'
-  pod 'Expecta+Snapshots'
+#pod 'Specta'
+#pod 'Expecta'
+#pod 'FBSnapshotTestCase'
+#pod 'Expecta+Snapshots'
   end
 end

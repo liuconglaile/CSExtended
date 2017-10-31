@@ -1,8 +1,8 @@
 {
   "name": "CSExtended",
-  "version": "0.1.0",
-  "summary": "A short description of CSExtended.",
-  "description": "TODO: Add long description of the pod here.",
+  "version": "0.1.1",
+  "summary": "CSExtended is a daily collection of categories.",
+  "description": "TODO: CSExtended is a daily collection of categories. Most are collected, and personal use ....",
   "homepage": "https://github.com/liuconglaile/CSExtended",
   "license": {
     "type": "MIT",
@@ -13,10 +13,26 @@
   },
   "source": {
     "git": "https://github.com/liuconglaile/CSExtended.git",
-    "tag": "0.1.0"
+    "tag": "0.1.1"
   },
   "platforms": {
     "ios": "8.0"
   },
-  "source_files": "CSExtended/Classes/**/*"
+  "subspecs": [
+    {
+      "name": "Foundation",
+      "source_files": "CSExtended/Classes/Foundation/*",
+      "public_header_files": "CSExtended/Classes/Foundation/*.h"
+    },
+    {
+      "name": "Quartz",
+      "source_files": "CSExtended/Classes/Quartz/*",
+      "public_header_files": "CSExtended/Classes/Quartz/*.h"
+    },
+    {
+      "name": "UIKit",
+      "source_files": "CSExtended/Classes/UIKit/*",
+      "public_header_files": "CSExtended/Classes/UIKit/*.h"
+    }
+  ]
 }
